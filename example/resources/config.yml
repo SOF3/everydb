@@ -1,0 +1,7 @@
+---
+database:
+  type: dir
+
+# If the database was previously from another type, copy the settings in `database` to `portFrom` and trigger the PortDataCommand.
+portFrom:
+  type: nil

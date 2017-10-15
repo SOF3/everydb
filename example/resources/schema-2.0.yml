@@ -1,0 +1,65 @@
+.thisVersion: 2.0
+
+player:
+  .key: name
+  name: string 16
+  kills: int
+  onlineTime: bigint
+  isDonator: boolean
+  friends: string[] # no size delimiter, uses default (256)
+  usingKit: kit
+  swords: sword[]
+
+kit:
+  helmet: smallint
+  chestplate: smallint
+  leggings: smallint
+  boots: smallint
+  sword: sword # this is nullable
+
+sword:
+  name: string
+  color: mediumint
+  nicknames: string[]
+
+# With the table prefix "everydb_", the above should lead to the following MySQL queries:
+# CREATE TABLE `everydb_.ver` (name VARCHAR(100), value VARCHAR(100)); # TODO also store the checksum of the schemas
+# INSERT INTO `everydb_.ver` (name, value) VALUES ('schema', '1.0');
+# INSERT INTO `everydb_.ver` (name, value) VALUES ('this', '1.0');
+# CREATE TABLE `everydb_player` (
+#   name VARCHAR(16) PRIMARY KEY,
+#   kills INT,
+#   onlineTime BIGINT,
+#   isDonator BIT(1),
+# );
+# CREATE TABLE `everydb_player.friends` (
+#   `.key` VARCHAR(16),
+#   friends VARCHAR(256), # I know the singular/plural grammar is being strange
+#   FOREIGN KEY (`.key`) REFERENCES `everydb_player`(name) ON DELETE CASCADE
+# );
+# CREATE TABLE `everydb_player.usingKit` (
+#   `.key` VARCHAR(16) PRIMARY KEY,
+#   helmet SMALLINT,
+#   chestplate SMALLINT,
+#   leggings SMALLINT,
+#   boots SMALLINT,
+#   FOREIGN KEY (`.key`) REFERENCES `everydb_player`(name) ON DELETE CASCADE
+# );
+# CREATE TABLE `everydb_player.usingKit.sword` (
+#   `.key` VARCHAR(16) PRIMARY KEY,
+#   name VARCHAR(256),
+#   color MEDIUMINT,
+#   FOREIGN KEY (`.key`) REFERENCES `everydb_player.usingKit`(`.key`) ON DELETE CASCADE
+# );
+# CREATE TABLE `everydb_player.swords` (
+#   `.key` VARCHAR(16),
+#   `.autoId` INT PRIMARY KEY AUTO_INCREMENT,
+#   name VARCHAR(256),
+#   color MEDIUMINT,
+#   FOREIGN KEY (`.key`) REFERENCES `everydb_player.usingKit`(`.key`) ON DELETE CASCADE
+# );
+# CREATE TABLE `everydb_player.swords` (
+#   `.key` INT,
+#   nicknames VARCHAR(256),
+#   FOREIGN KEY (`.key`) REFERENCES `everydb_player.swords`(`.autoId`) ON DELETE CASCADE
+# );

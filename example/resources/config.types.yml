@@ -1,0 +1,35 @@
+# Possible data of the `database` entry in config.yml for different types
+---
+type: single
+fileName: data.yml # the filename to save data in
+flavour: yaml # possible values: yaml, json, json/min, serialize, nbt # default "yaml"
+# note: an additional .{fileName}.ver file will be created to store schema version and settings
+...
+
+---
+type: dir # alias: "multi"
+directory: data # name of directory to save data in
+prefixLevels: 0 # the number of characters from each datum key
+flavour: yaml # possible values: yaml, json, json/min, serialize, nbt # default "yaml"
+# note: an additional {directory}/.ver file will be created to store schema version and settings # TODO resolve possible conflicts
+...
+
+---
+type: sqlite # aliases: "sqlite3", "sq3"
+fileName: data.db # the filename to save data in
+tablePrefix: everydb_example_ # the prefix before table names; typically your plugin name, or the name of this database type
+# note: an additional .{fileName}.ver file will be created to store schema version and settings
+...
+
+---
+type: mysql # alias: "mysqli"
+mysql: # libasynql v2 config format
+  host: 127.0.0.1
+  username: root
+  password: ""
+  schema: everydb_example
+  port: 3306
+  socket: ""
+tablePrefix: everydb_example_ # the prefix before table names; typically your plugin name, or the name of this database type.
+# note: a {tablePrefix}.ver table (yes, I will use `` to escape the dot) will be created to store schema version and settings # TODO make sure primary schema names != ".ver"
+...

@@ -1,0 +1,13 @@
+projects:
+  everydb:
+    type: library
+    model: virion
+    path: everydb
+    libs:
+      - src: poggit/libasynql/libasynql
+        version: ^2.0
+  everydb-example:
+    path: example
+    libs:
+      - src: /everydb
+        version: ^1.0

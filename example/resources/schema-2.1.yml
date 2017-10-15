@@ -1,0 +1,27 @@
+.thisVersion: 2.1
+
+player:
+  .key: name
+  name: string 16
+  kills: int
+  onlineTime: bigint
+  isDonator: boolean
+  friends: string[]
+  usingKit: kit
+  swords: sword[]
+
+kit:
+  helmet: smallint
+  chestplate: smallint
+  leggings: smallint
+  boots: smallint
+  sword: sword
+  arrowType: int # New column in the kit schema!
+
+sword:
+  name: string
+  color: mediumint
+  nicknames: string[]
+
+# Migration does not support renaming type names or columns
+# It only supports adding/

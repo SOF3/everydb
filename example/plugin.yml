@@ -1,0 +1,5 @@
+name: everydb_example
+author: SOFe
+version: 1.0.0
+api: 3.0.0-ALPHA9
+main: sofe\eg_everydb\EverydbExample
